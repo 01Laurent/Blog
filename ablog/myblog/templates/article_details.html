@@ -30,15 +30,17 @@
 
     {% if user.is_authenticated %}
         {% if liked %}
-            <button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-danger btn-sm">UnLike</button> 
+            <button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-link p-0">
+            <i class="fa-solid fa-heart fa-2x text-danger"></i></button>
         {% else %}    
-            <button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-primary btn-sm">Like</button> 
+            <button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-link p-0">
+            <i class="fa-regular fa-heart fa-2x text-muted"></i></button>
         {% endif %}
     {% else %}  
         <small>
             <a href="{% url 'login' %}">Login</a> to Like.
         </small>
     {% endif %}
-        - {{ total_likes }} Likes
+         {{ total_likes }} Likes
 </form>
 {% endblock %}
