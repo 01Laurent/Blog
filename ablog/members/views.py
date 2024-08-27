@@ -2,9 +2,15 @@ from django.db.models.base import Model as Model
 from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.views import generic
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
+from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
-from .forms import SignUpForm, EditProfileForm
+from .forms import SignUpForm, EditProfileForm, PasswordsChangingForm
+
+class PasswordsChangeView(PasswordChangeView):
+    form_class = PasswordsChangingForm
+    # form_class = PasswordChangeForm
+    success_url = reverse_lazy('home')
 
 class UserRegisterView(generic.CreateView):
     form_class = SignUpForm
