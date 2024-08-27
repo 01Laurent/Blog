@@ -3,31 +3,27 @@
 
 <h1> My Posts. </h1>
 <ul>
-    <div class="container">
-        <div class="container custom-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2)">
-            {% for post in object_list %}
-                <li>
-                    <a href="{% url 'article-detail' post.pk %}">
-                    {{post.title }}</a>
-                    - <a href="{% url 'category' post.category|slugify %}">{{ post.category}}</a>
-                    - {{ post.author.first_name }} 
-                    {{ post.author.last_name }} -
-                    {{ post.post_date }} 
-                    <small>
-                        {% if user.is_authenticated %}
-                            {% if user.id == post.author.id %}
-                                <a href="{% url 'update_post' post.pk %}">(Edit)</a>
+    {% for post in object_list %}
+        <li>
+            <a href="{% url 'article-detail' post.pk %}">
+            {{post.title }}</a>
+            - <a href="{% url 'category' post.category|slugify %}">{{ post.category}}</a>
+            - {{ post.author.first_name }} 
+            {{ post.author.last_name }} -
+            {{ post.post_date }} 
+            <small>
+                {% if user.is_authenticated %}
+                    {% if user.id == post.author.id %}
+                        <a href="{% url 'update_post' post.pk %}">(Edit)</a>
 
-                                <a href="{% url 'delete_post' post.pk %}">(Delete)</a>
-                            {% endif %}
-                        {% endif %}
-                    </small> <br/>
-                    <!-- {{ post.snippet }}.... -->
-                    {{ post.body|slice:":100"|safe }}..
-                </li>
-            {% endfor %}
-        </div>
-    </div>
+                        <a href="{% url 'delete_post' post.pk %}">(Delete)</a>
+                    {% endif %}
+                {% endif %}
+            </small> <br/>
+            {{ post.snippet }}...-
+            <!-- {{ post.body|slice:":100"|safe }}.. -->
+        </li>
+    {% endfor %}
 </ul>
 
 
