@@ -68,20 +68,22 @@
           </h5>
           <p class="card-text text-muted" >
 
+            <a href="{% url 'show_profile_page' post.author.profile.id %}">Profile Page</a>
+
             {% if post.author.profile.website_url %}
-                <a href="{{ post.author.profile.website_url }}">Website |</a>
+                |<a href="{{ post.author.profile.website_url }}">Website </a>
             {% endif %}
 
             {% if post.author.profile.twitter_url %}
-                <a href="{{ post.author.profile.twitter_url }}">X |</a>
+                |<a href="{{ post.author.profile.twitter_url }}">X </a>
             {% endif %}
 
             {% if post.author.profile.instagram_url %}
-                <a href="{{ post.author.profile.instagram_url }}">Instagram |</a>
+                |<a href="{{ post.author.profile.instagram_url }}">Instagram </a>
             {% endif %}
 
             {% if post.author.profile.github_url %}
-                <a href="{{ post.author.profile.github_url }}"target="_blank" rel="noopener noreferrer" class="social-icon"><i class="fab fa-github"></i></a>
+                |<a href="{{ post.author.profile.github_url }}"target="_blank" rel="noopener noreferrer" class="social-icon"><i class="fab fa-github"></i></a>
             {% endif %}
           </p>
           <p class="card-text">{{ post.author.profile.bio }}</p>
