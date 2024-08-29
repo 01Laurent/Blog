@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post, Category
-from .forms import PostForm, EditForm
+from .models import Post, Category, Commentt
+from .forms import PostForm, EditForm, CommentForm
 from django .urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 
 # def home(request):
     # return render(request, 'home.html', {})
@@ -85,3 +86,15 @@ class DeletePostView(DeleteView):
     model = Post
     template_name = 'delete_post.html'
     success_url = reverse_lazy('home')
+
+class AddComment(CreateView):
+    model = Commentt
+    form_class = CommentForm
+    template_name = 'add_comments.html'
+    success_url = reverse_lazy('home')
+    # fields = '__all__'
+    def form_valid(self, form):
+        post = get_object_or_404(Post, pk=self.kwargs['pk'])
+        form.instance.post = post  # Correctly assign the Post object to the comment's post field
+        messages.success(self.request, "Created successfully.")
+        return super().form_valid(form)
