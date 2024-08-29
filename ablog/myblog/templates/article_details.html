@@ -24,9 +24,6 @@
 {% endif %}
 {{ post.body|safe }}
 
-<br/><br/>
-<a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
-
 <br/> <br/>
 <hr>
 <br/>
@@ -50,7 +47,24 @@
 </form>
 
 <br/> <br/>
+<hr>
 
+<h2>comments</h2>
+{% if not post.comments.all %}
+    No comments yet! <a href="#">Add One</a>
+{% else %}
+    {% for comment in post.comments.all %}
+        <strong>
+            {{ comment.name }}-
+            {{ comment.date_added }}-
+        </strong>
+        <br/>
+        {{ comment.body }}
+    {% endfor %}
+{% endif %}
+
+<br/><br/>
+<hr>
 <div class="card mb-3">
     <div class="row g-0">
       <div class="col-md-2">
