@@ -1,26 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1> My Posts. </h1>
+<div class="container my-5">
+    <h1 class="text-center mb-4" style="font-family: 'Nunito', sans-serif;">Posts</h1>
 
-{% for post in object_list %}
-    <div class="container" style=" font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif Courier, monospace;  padding: 20px; margin-bottom: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),0 1px 3px rgba(0, 0, 0, 0.08);">
-        <h2><a href="{% url 'article-detail' post.pk %}">{{ post.title }}</a></h2>
-        <p>
-            <a href="{% url 'category' post.category|slugify %}">{{ post.category }}</a> -
-            {{ post.author.first_name }} {{ post.author.last_name }} - 
-            {{ post.post_date }}
-        </p>
-        <p>{{ post.snippet }}...</p>
-        <small>
-            {% if user.is_authenticated %}
-                {% if user.id == post.author.id %}
-                    <a href="{% url 'update_post' post.pk %}">(Edit)</a>
-                    <a href="{% url 'delete_post' post.pk %}">(Delete)</a>
-                {% endif %}
-            {% endif %}
-        </small>
+    <div class="row">
+        {% for post in object_list %}
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card shadow-sm" style="border-radius: 10px;">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'article-detail' post.pk %}" class="text-dark" style="font-family: 'Nunito', sans-serif;">{{ post.title }}</a>
+                    </h5>
+                    <p class="card-text">
+                        <a href="{% url 'category' post.category|slugify %}" class="badge bg-success">{{ post.category }}</a> - 
+                        {{ post.author.first_name }} {{ post.author.last_name }} -
+                        <small class="text-muted">{{ post.post_date }}</small>
+                    </p>
+                    <p class="card-text" style="font-family: 'Nunito', sans-serif;">
+                        {{ post.snippet }}...
+                    </p>
+                    <small>
+                        {% if user.is_authenticated %}
+                            {% if user.id == post.author.id %}
+                                <a href="{% url 'update_post' post.pk %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                <a href="{% url 'delete_post' post.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                            {% endif %}
+                        {% endif %}
+                    </small>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
-{% endfor %}
+</div>
 
 {% endblock %}
